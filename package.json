@@ -1,0 +1,8 @@
+{
+  "name": "demos-for-contract-gas-op",
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.21.0",
+    "web3-eth-abi": "^4.2.0"
+  }
+}
