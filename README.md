@@ -23,19 +23,14 @@
 
 了解Gas优化，首先需要了解合约是怎样在链上运行，我们会讲到从合约交易的提交到字节码调用相关知识内容，也会讲到合约存储和内存使用相关内容，还有跨合约调用等内容。
 
-带着一些问题去阅读可能会更好：
-1. A给B转账ETH，当转账金额或者转账地址不同时会不会消耗不同的gas数量？
-2. A给B转账ERC20，当转账金额或者转账地址不同时会不会消耗不同的gas数量？
-3. 。。。
-
 ### 内容列表
 1. [EVM相关基础知识](docs/Case_000.MD)；
 2. [一个计数合约案例，来解释合约被执行的流程和燃气消耗](docs/Case_001.MD)；
 3. [交易calldata，及优化方法](docs/Case_002.MD)；
 4. [存储使用及存储合并](docs/Case_003.MD)；
-5. 存储读写的燃气消耗 TODO；
+5. [存储读写的燃气消耗](docs/Case_004.MD)；
 6. 内存的燃气计算 TODO；
-7. 日志event收费 TODO；
+7. [日志event收费](docs/Case_006.MD);
 8. 调用合约 TODO；
 9. 合约编译优化设置 TODO；
 10. 用汇编指令来做优化 TODO；
@@ -57,7 +52,6 @@
 强烈推荐 [noxx](https://noxx.substack.com/)的EVM Deep Dives系列文章,
 这个博主主要在18年高频产出，而且质量很高 [programtheblockchain](https://programtheblockchain.com/posts/)
 
-可以看一下这个博主17-18年的几篇文章 [medium zh](https://medium.com/@hayeah)
 #### 文章
 [EVM Deep Dives 1: Digging deep into the EVM mechanics during contract function calls](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy) 
 NOXX 2022年2月28日
@@ -84,4 +78,6 @@ NOXX 2022年5月6日
 [B站 Web3研习舍](https://www.bilibili.com/video/BV174421c79R?p=29&vd_source=db54ffa9ac6ff13a5d5eb108632bd192) 丰富
 
 #### 项目
+
+
 

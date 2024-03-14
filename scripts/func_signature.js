@@ -1,27 +1,32 @@
 const coder = require('web3-eth-abi');
 
-function signature(prex, i) {
-    const name = `${prex}_${i}`
+function signature(name, inputs, prex="0000") {
     const sn = coder.encodeFunctionSignature({
         name,
         type: 'function',
-        inputs: [
-            { type: 'address' },
-            // { type: 'bytes32' },
-            { type: 'uint256' },
-        ]
+        inputs
     })
-    const ii = sn.indexOf('0000') 
-    if (ii > 0 && ii % 2 === 0) {
-        console.log(i, name, sn)
+    const ok = sn.startsWith(prex) || sn.endsWith(prex)
+   
+    if (ok) {
+        console.log(name, sn)
     }
 }
 
-function loop() {
+
+function loop(funcABI) {
     for (let i=0; i<100000; i++) {
-        signature('transfer', i)
+        const name = `${funcABI.name}_${i}`
+        signature(name, funcABI.inputs)
     }
 }
 
+const funcABI = {
+    "inputs": [],
+    "name": "c",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+}
 
-loop()
+loop(funcABI)

@@ -82,12 +82,6 @@ function transfer_16049(bytes32 to) public returns (bool){
 	_transfer(owner, address(bytes20(to << 96)), uint(uint96(bytes12(to))) * (10 ** 18));
 	return true;
 }
-
-function a_transfer_73336(address to) public payable returns (bool) {
-	address owner = _msgSender();
-	_transfer(owner, to, msg.value * (10 ** 18));
-	return true;
-}
 ```
 
 首先我们首先调用transfer给账户 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2 转账100个token，然后依次分别提交3个修改后的transfer来看下结果，注意填写正确的参数和value值
@@ -137,21 +131,6 @@ calldata=`0x0000988c000000000000000000000064ab8483f64d9c6d1ecf9b849ae677dd331583
 
 ![transfer_16049 result](Case_002/transfer_16049.png)
 
-##### 提交 a_transfer_73336
-参数：0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2
-value: 100
-calldata=`0x0000ddd0000000000000000000000000ab8483f64d9c6d1ecf9b849ae677dd3315835cb2`
-
-| Method   | Gas Limit | Transaction Cost  | Base Cost | Calldata Cost | Execution Cost |
-| -------- | -------- | -------- | -------- | -------- | -------- |
-| transfer       | 40333 | 35072 | 21000 | 644 | 13428 |
-| transfer_35177 0x00005cfc | 40099 | 34868 | 21000 | 408 | 13460 |
-| a_transfer_73336 0x0000ddd0 | 40149 | 34912 | 21000 | 408 | 13504 |
-
-a_transfer_73336 和 transfer_35177是同样的功能，同样的参数，但是因为a_transfer_73336的签名更大一些，所以排序更靠后。
-
-![a_transfer_73336 result](Case_002/a_transfer_73336.png)
-
 ##### 燃气消耗分析
 ```js
 // transfer_35177(address) 方法签名是 0x00005cfc
@@ -173,16 +152,6 @@ function transfer_16049(bytes32 to) public returns (bool) { // step 34-125 18582
 	// step 440-506 5440 - 5236 = 204gas
 }
 
-// a_transfer_73336(address) 方法签名是 0x0000ddd0
-// start 40149 - 21408 = 18741
-// 18741 - 18579 = 162
-function a_transfer_73336(address to) public payable returns (bool) { // step 39-138 18579 - 18257 = 322 
-	address owner = _msgSender(); // step 139-152 18257-18213=44gas
-	_transfer(owner, to, msg.value * (10 ** 18)); // step 153-444 18213 - 5441 = 12772gas
-	return true;
-	// step 445-510 5441 - 5237 = 204gas 
-}
-
 // transfer(address,uint256) 方法签名是 0xa9059cbb 
 // start 40333 - 21644 = 18689
 // 18689 - 18551 = 138 
@@ -194,6 +163,49 @@ function transfer(address to, uint256 value) public virtual returns (bool) { // 
 }
 ```
 
+##### 补充一下这个合约的路径查找
+这是合约中方法选择部分的字节码，我们做了翻译，惊讶的发现，原来方法查找用了二分法，棒！在方法列表>=8时，会被二分成两个队列。
+```
+3560e01c
+8063 313ce567 11 61009457 // if 313ce567 GT func_signature, JUMP 0x94
+8063 8da5cb5b 11 61006357 // if 8da5cb5b GT func_signature, JUMP 0x63
+
+8063 8da5cb5b 14 61034d57 // -> owner()
+8063 95d89b41 14 61037757 // -> symbol()
+8063 a9059cbb 14 6103a157 // -> transfer()
+8063 dd62ed3e 14 6103dd57 // -> allowance(address,address)
+8063 f2fde38b 14 61041957 // -> transferOwnership(address)
+6100f556 // no matched, to fadeback
+5b // JUMPDEST location 0x63 = 99
+8063 313ce567 14 6102a957 // -> decimals()
+8063 40c10f19 14 6102d357 // -> mint(address,uint256)
+8063 70a08231 14 6102fb57 // -> balanceOf(address)
+8063 715018a6 14 61033757 // -> renounceOwnership()
+6100f556 // no matched, to fadeback
+5b // JUMPDEST location 0x94 = 148
+8063 06fdde03 11 6100d057 // if 06fdde03 GT func_signature, JUMP 0xd0
+8063 06fdde03 14 6101dd57 // -> name()
+8063 095ea7b3 14 61020757 // -> approve(address,uint256)
+8063 18160ddd 14 61024357 // -> totalSupply()
+8063 23b872dd 14 61026d57 // -> transferFrom(address,address,uint256)
+6100f556 // no matched, to fadeback
+5b // JUMPDEST 字节位置 0xd0 = 208
+8061 4683 14 6100f957 // -> transfer_86559(address,uint256)
+8061 5cfc 14 61013557 // -> transfer_35177(address,uint256)
+8061 988c 14 61016557 // -> transfer_16049(address,uint256)
+8061 e132 14 6101a157 // -> transfer_71446(address,uint256)
+5b
+```
+
 ### 推荐阅读
 [calldata 燃气计算 GETH源码](https://github.com/ethereum/go-ethereum/blob/v1.10.20/core/state_transition.go#L118)
 [transation 执行燃气计算相关源码](https://github.com/ethereum/go-ethereum/blob/v1.10.20/core/state_transition.go#L275)
+
+
+// 6080604052 3560e01c 575b5f
+
+
+
+
+
+

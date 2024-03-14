@@ -56,6 +56,9 @@ contract Case000 {
 57                          =   JUMPI  	
 ```
 
+对方法选择过程的描述图  [源于文档](https://takenobu-hs.github.io/downloads/ethereum_evm_illustrated.pdf)
+![EVM_func_selector](Case_000/EVM_func_selector.png)
+
 [作者提供的逐条调试的EVM playground链接](https://www.evm.codes/playground?unit=Wei&callData=0x6057361d000000000000000000000000000000000000000000000000000000000000000a&codeType=Mnemonic&code=%27%210%7E0KCALLDATALOAD%7E2z2qw%21E0%7E3KSHR%7E5z2qwDUP1%7E6%28X4_2E64CEC1%7E7KEQ%7E12z5qwX2_3B%7E13%28*I%7E16z3qwDUP1%7E17KX4_6057361D%7E18KEQ%7E23z5qwX2_59%7E24K*I%7E27z3qwkY+wX30_0%7E28KwZGV59z31q%211%7E60+%7BG%7DW%7DKwkYwX26_0%7E62z2qKZstore%7Buint256V89z27q%210+ZContinueW.KK%27%7E+ZOffset+z+%7Bprevious+instruFoccupies+w%5Cnq%29s%7DwkZThes-ar-just+paddingNenabl-usNgetN_+0xZ%2F%2F+Yprogram+counter+59+%26+89XPUSHW+funFexecution...V%7D%29codew*DEST%7EN+to%28wwGretrieve%7BFction+-e+*JUMP%29+byte%28+K%21X1_%01%21%28%29*-FGKNVWXYZ_kqwz%7E_&fork=shanghai)
 
 ##### 操作码燃气简单说明
@@ -84,6 +87,11 @@ keccak256(“store(uint256)”) →  first 4 bytes = 6057361d
 
 keccak256(“retrieve()”) → first 4 bytes = 2e64cec1
 ```
+
+### EVM 架构
+有了上面的基础阅读，现在我们可以试着来看一下EVM的架构图，可能对你理解合约交易运行会有帮助
+
+![EVM_achiteche](Case_000/EVM_achiteche.png)
 
 ### 推荐 EVM playground
 EVM playground帮我们理解EVM中操作码的执行过程，以及相关堆栈、内存、存储和燃气消耗等信息的状态
