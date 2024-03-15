@@ -10,7 +10,7 @@ contract TokenGOP is ERC20, Ownable {
         ERC20("Token-GOP", "GOP")
         Ownable(initialOwner)
     {
-        _mint(msg.sender, 200 * 10 ** decimals());
+        _mint(msg.sender, 10000 * 10 ** decimals());
     }
 
     function mint(address to, uint256 amount) public onlyOwner {

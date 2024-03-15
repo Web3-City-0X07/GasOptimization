@@ -1,21 +1,20 @@
 #  EVM Storage
 
-终于要开始EVM存储的介绍了，这可以说是EVM非常重要的部分，存储也是EVM智能合约消耗燃气最可观的地方，可以说有时候，你做10个其他燃气优化都不如减少一个存储的读写来的更高效。因为有两遍非常好的文章，所以我们还是用偷懒式写法（说实话，写一篇文章太花费时间了），基于文章简单输出，然后大家再看看原文。
+终于要开始EVM存储的介绍了，这可以说是EVM非常重要的部分，存储也是EVM智能合约消耗燃气最可观的地方，可以说有时候，你做10个其他燃气优化都不如减少一个存储的读写来的更高效。因为有两遍非常好的文章，所以还是用偷懒式写法（说实话，写一篇文章太花费时间了），简单输出，然后大家通过阅读推荐的文章来进一步深入学习。
 
 第一篇 [Understanding Ethereum Smart Contract Storage](https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/) by STEVE MARX，主要将合约里怎样分配存储空间，怎样计算存储位置。
 第二篇 [EVM Deep Dives Part3: Demystifying Storage Slot Packing](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-3ea?s=r) by noxx，主要讲变量存储合并。
 
-我们先来简单介绍，如果深入学习的话，再阅读两篇原文。
 
 ## 合约存储基础
 
 ### EVM storage 是个天文数字般巨大的数组
 
-在以太坊虚拟机（EVM）中运行的每个智能合约都在其自己的永久存储中维护状态。该存储可以被认为是一个非常大的数组，最初充满了零。数组中的每个值都是32字节大小，称为一个slot插槽，共有2**256次方这样的值。智能合约可以在任何位置读取或写入值。这就是存储接口的范围。
+在以太坊虚拟机（EVM）中运行的智能合约都在其自己的存储中维护状态。合约的存储可以被认为是一个非常大的数组，最初充满了零。数组中的每个值都是32字节大小，称为一个slot插槽，共有2**256次方这样的值。智能合约可以在任何位置读取或写入值。这就是存储接口的范围。
 
 ![contract storage](Case_003/array.png)
 
-但其实这个数据里大量的插槽都是空的，而这些插槽不分配真正的物理存储空间。所以实际上合约的物理存储中之存储了少量的值为非零的数据。同时以太坊也会通过退手续费来鼓励我们把插槽设置为0来释放其物理存储空间。
+但其实这个数据里大量的插槽都是空的，而这些插槽不分配真正的物理存储空间。所以实际上合约的物理存储中之存储了少量的值为非零的数据。同时以太坊也会通过退手续费来鼓励将插槽设置为0来释放其物理存储空间。
 
 合约里分为固定大小的值，如 uint-n/struct/定长数组等等，也有动态的变量，如动态数据或Map。这两种类型的值在合约里有不同的位置分配机制。
 
@@ -40,7 +39,7 @@ contract StorageTest {
 
 #### 动态大小的位置
 
-首先我们给刚刚的合约添加一个值类型为Entry的动态数组
+首先给刚刚的合约添加一个值类型为Entry的动态数组
 ```js
 contract StorageTest {
     uint256 a;     // slot 0
@@ -66,7 +65,7 @@ function arrLocation(uint256 slot, uint256 index, uint256 elementSize)
 }
 ```
 
-现在我们再为合约添加一个Map
+现在再为合约添加一个Map
 ```js
 contract StorageTest {
     uint256 a;     // slot 0
@@ -93,7 +92,7 @@ function mapLocation(uint256 slot, uint256 key) public pure returns (uint256) {
 
 #### 复杂类型组合的位置
 
-别担心，复杂数据组合的存储位置也是简单的，我们给合约添加一个Map g,键是uint256，值是uint256数据，然后再添加一个数组，值类型是Map
+别担心，复杂数据组合的存储位置也是简单的，现在给合约添加一个Map g，键是uint256，值是uint256数据，然后再添加一个数组，值类型是Map
 ```js
 contract StorageTest {
     uint256 a;     // slot 0
@@ -114,7 +113,7 @@ contract StorageTest {
 }
 ```
 
-于是我们就可以用以下方式来查找g中数据的元素位置，先得到Map中，比如查找g[123][0]
+于是就可以用以下方式来查找g中数据的元素位置，先得到Map中，比如查找g[123][0]
 ```js
 // 先计算 g[123] 位置
 arrLoc = mapLocation(8, 123);  // g is at slot 8
@@ -131,11 +130,11 @@ mapLoc = arrLocation(9, 2, 1);  // h is at slot 9
 itemLoc = mapLocation(mapLoc, 456);
 ```
 
-太棒了，现在你已经知道合约是如何存储数据的了，现在让我继续另外一个重要的部分
+太棒了，现在你已经知道合约是如何存储数据的了，现在继续另外一个重要的部分
 
 ## 合并数据存储-插槽封装 Slot Packing
 
-我们知道合约每个插槽是可以存储32bytes数据的，当我合约里声明了如下变量时，注意变量不再是uint256，而是更小类型。
+合约中每个插槽可以存储32bytes数据，当合约里声明了如下变量时（注意变量不再是uint256），而是更小的uint32和uint128类型。
 ```js
 contract StorageTest {
     uint32 a;     
@@ -215,4 +214,9 @@ contract Case003 {
 
 打包也是一个非常有效节约燃气消耗的方式
 
-好吧，这就是合约存储的位置分配和插槽打包的内容～，感谢我上文提到的两篇文章的作者，强烈推荐大家阅读他们的文章。
+好吧，这就是合约存储的位置分配和插槽打包的内容～，感谢上文提到的两篇文章的作者，强烈推荐大家阅读他们的文章。
+
+### 推荐阅读
+- [Understanding Ethereum Smart Contract Storage](https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/) by STEVE MARX，主要将合约里怎样分配存储空间，怎样计算存储位置。
+- [EVM Deep Dives Part3: Demystifying Storage Slot Packing](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-3ea?s=r) by noxx，主要讲变量存储合并。
+- [EVM Deep Dives Part4: Under The Hood - Storage Opcodes In the Go Ethereum (Geth) Client](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-5a5?s=r)
