@@ -51,8 +51,8 @@
 ### 推荐
 
 #### 博客
-强烈推荐 [noxx](https://noxx.substack.com/)的EVM Deep Dives系列文章,
-这个博主主要在18年高频产出，而且质量很高 [programtheblockchain](https://programtheblockchain.com/posts/)
+- 强烈推荐 [noxx](https://noxx.substack.com/)的EVM Deep Dives系列文章,
+- 这个博主主要在18年高频产出，而且质量很高 [programtheblockchain](https://programtheblockchain.com/posts/)
 
 #### 文章
 - [EVM Deep Dives 1: Digging deep into the EVM mechanics during contract function calls](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy) 
