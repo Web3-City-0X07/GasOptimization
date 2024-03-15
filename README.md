@@ -55,34 +55,34 @@
 这个博主主要在18年高频产出，而且质量很高 [programtheblockchain](https://programtheblockchain.com/posts/)
 
 #### 文章
-[EVM Deep Dives 1: Digging deep into the EVM mechanics during contract function calls](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy) 
+- [EVM Deep Dives 1: Digging deep into the EVM mechanics during contract function calls](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy) 
 NOXX 2022年2月28日
 
-[EVM Deep Dives 2: Let's take a trip down memory lane](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-d6b?s=r)
+- [EVM Deep Dives 2: Let's take a trip down memory lane](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-d6b?s=r)
 NOXX 2022年3月6日
 
-[EVM Deep Dives 3: Demystifying Storage Slot Packing - Key Knowledge for the EVM Hackers](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-3ea?s=r)
+- [EVM Deep Dives 3: Demystifying Storage Slot Packing - Key Knowledge for the EVM Hackers](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-3ea?s=r)
 NOXX 2022年3月28日
 
-[EVM Deep Dives 4: Under The Hood - Storage Opcodes In the Go Ethereum (Geth) Client](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-5a5?s=r)
+- [EVM Deep Dives 4: Under The Hood - Storage Opcodes In the Go Ethereum (Geth) Client](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-5a5?s=r)
 NOXX 2022年5月6日
 
-[Understanding Ethereum Smart Contract Storage](https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/)
+- [Understanding Ethereum Smart Contract Storage](https://programtheblockchain.com/posts/2018/03/09/understanding-ethereum-smart-contract-storage/)
 2018/3/9 BY STEVE MARX
 
 - [Understanding event logs on the Ethereum blockchain](https://medium.com/mycrypto/understanding-event-logs-on-the-ethereum-blockchain-f4ae7ba50378) MyCrypto Mar 5, 2020
 
-[EVM Deep Dives 5: Another Weapon in the EVM Hackers Arsenal - The Power of Delegate Call](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-a5f)
+- [EVM Deep Dives 5: Another Weapon in the EVM Hackers Arsenal - The Power of Delegate Call](https://noxx.substack.com/p/evm-deep-dives-the-path-to-shadowy-a5f)
 NOXX 2022年5月16日
 
 #### 网站
-[EVM.codes](https://www.evm.codes/) 非常好的EVM及字节码相关
+- [EVM.codes](https://www.evm.codes/) 非常好的EVM及字节码相关
 
-[EIPS](https://eips.ethereum.org/all) 
+- [EIPS](https://eips.ethereum.org/all) 
 #### 视频
-[B站 坡县泽宾](https://space.bilibili.com/2112923943/channel/collectiondetail?sid=1538140) 很牛，很喜欢
+- [B站 坡县泽宾](https://space.bilibili.com/2112923943/channel/collectiondetail?sid=1538140) 很牛，很喜欢
 
-[B站 Web3研习舍](https://www.bilibili.com/video/BV174421c79R?p=29&vd_source=db54ffa9ac6ff13a5d5eb108632bd192) 丰富
+- [B站 Web3研习舍](https://www.bilibili.com/video/BV174421c79R?p=29&vd_source=db54ffa9ac6ff13a5d5eb108632bd192) 丰富
 
 #### 项目
 
