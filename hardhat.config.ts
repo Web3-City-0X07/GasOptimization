@@ -2,7 +2,23 @@ import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.24",
+  solidity: {
+    compilers: [
+      {
+        version: "0.8.24",
+      },
+      {
+        version: "0.8.20",
+        settings: {},
+      },
+    ],
+    overrides: {
+      "contracts/ERC20.sol": {
+        version: "0.8.20",
+        settings: { }
+      }
+    }
+  },
 };
 
 export default config;

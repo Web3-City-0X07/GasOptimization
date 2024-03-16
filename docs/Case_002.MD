@@ -32,12 +32,11 @@ keccak256('transfer(address,uint256)') = 0xa9059cbb2ab09eb219583f4a59a5d0623ade3
 ```
 小于32bytes的参数首先要encode成32bytes字节，然后按顺序拼接给calldata
 
-复杂的参数，后面补充 TODO
+对于复杂的参数，放到文章最后来讲。
 
 刚刚的转账交易提交后，查看结果可以看到这个转账花费了52172gas，然后打开调试模式可以发现（Remix交易结果消息后的Debug按钮），在交易开始的时候，就已经消耗了21644gas，减去21000的交易初始费用，calldata消耗了644gas。
 
 ![transfer 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2 1th](Case_002/transfer_a_1.png)
-
 
 ### calldata燃气消耗计算规则
 
@@ -215,6 +214,10 @@ function transfer(address to, uint256 value) public virtual returns (bool) { // 
 8061 e132 14 6101a157 // -> transfer_71446(address,uint256)
 5b
 ```
+
+### Calldata中复杂参数编码
+
+**TODO**
 
 ### 推荐阅读
 [calldata 燃气计算 eth源码](https://github.com/ethereum/go-ethereum/blob/v1.10.20/core/state_transition.go#L118)

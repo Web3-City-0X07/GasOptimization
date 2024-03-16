@@ -97,6 +97,10 @@ if value != current_value
 ]
 ```
 
+### 一个帮助理解存储收费的案例
+
+**TODO**
+
 ### EIPS
 
 推荐几个关于燃气消耗的EIP，可去[EIP网站](https://eips.ethereum.org/all)查看

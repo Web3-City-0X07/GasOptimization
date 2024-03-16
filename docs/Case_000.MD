@@ -56,14 +56,19 @@ contract Case000 {
 57                          =   JUMPI  	
 ```
 
-对方法选择过程的描述图  [源于文档](https://takenobu-hs.github.io/downloads/ethereum_evm_illustrated.pdf)
+对方法选择过程的描述
+
 ![EVM_func_selector](Case_000/EVM_func_selector.png)
+图片截取自 [ethereum_evm_illustrated](https://takenobu-hs.github.io/downloads/ethereum_evm_illustrated.pdf)
 
 [作者提供的逐条调试的EVM playground链接](https://www.evm.codes/playground?unit=Wei&callData=0x6057361d000000000000000000000000000000000000000000000000000000000000000a&codeType=Mnemonic&code=%27%210%7E0KCALLDATALOAD%7E2z2qw%21E0%7E3KSHR%7E5z2qwDUP1%7E6%28X4_2E64CEC1%7E7KEQ%7E12z5qwX2_3B%7E13%28*I%7E16z3qwDUP1%7E17KX4_6057361D%7E18KEQ%7E23z5qwX2_59%7E24K*I%7E27z3qwkY+wX30_0%7E28KwZGV59z31q%211%7E60+%7BG%7DW%7DKwkYwX26_0%7E62z2qKZstore%7Buint256V89z27q%210+ZContinueW.KK%27%7E+ZOffset+z+%7Bprevious+instruFoccupies+w%5Cnq%29s%7DwkZThes-ar-just+paddingNenabl-usNgetN_+0xZ%2F%2F+Yprogram+counter+59+%26+89XPUSHW+funFexecution...V%7D%29codew*DEST%7EN+to%28wwGretrieve%7BFction+-e+*JUMP%29+byte%28+K%21X1_%01%21%28%29*-FGKNVWXYZ_kqwz%7E_&fork=shanghai)
 
 ##### 操作码燃气简单说明
 EVM opcode用1个字节来表示，每个操作有不同的收费规则，大多数的操作是固定收费的，比如ADD固定3gas，存储和内存相关的操作码会有更多收费细节。因为我们关注的是燃气优化，所以更关注那些消耗燃气多的opcode（红色 >=100gas），比如SLOAD和STORE等，通常在EVM中，与读写硬盘数据相关的操作都比较贵，计算和逻辑指令基本都在10gas以下。
+
 ![opcodes](Case_000/opcode.png)
+
+推荐使用[evm.codes](https://www.evm.codes/?fork=cancun)来研究opcode的燃气消耗。
 
 ### 智能合约函数调用
 
@@ -89,9 +94,11 @@ keccak256(“retrieve()”) → first 4 bytes = 2e64cec1
 ```
 
 ### EVM 架构
-有了上面的基础阅读，现在可以试着来看一下EVM的架构图，可能对你理解合约交易运行会有帮助
+有了上面的基础阅读，可以进一步了解EVM的架构，推荐阅读[ethereum.org](https://ethereum.org/zh/developers/docs/evm/)相关内容来学习。
 
-![EVM_achiteche](Case_000/EVM_achiteche.png)
+![EVM_achiteche](Case_000/EVM_achiteche_01.png)
+
+图来自以太坊虚拟机图解 [takenobu-hs](https://takenobu-hs.github.io/downloads/ethereum_evm_illustrated.pdf)
 
 ### 推荐 EVM playground
 EVM playground帮我们理解EVM中操作码的执行过程，以及相关堆栈、内存、存储和燃气消耗等信息的状态
@@ -99,5 +106,5 @@ EVM playground帮我们理解EVM中操作码的执行过程，以及相关堆栈
 
 其实我个人更推荐[Remix](https://remix.ethereum.org/)的Debug，显示的信息更全，此项目所有案例都是在Remix上调试的。
 
-### 强烈推荐 
+### 推荐阅读
 再次强烈推荐阅读[noxx 的 EVM Deep Dives系列文章](https://noxx.substack.com/)
