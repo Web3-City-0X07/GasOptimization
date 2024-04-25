@@ -26,24 +26,24 @@
 
 这一部分我们关注基础知识，配合一些简单用例来理解基础知识，并不会太多的去讨论燃气优化方法
 
-1. [EVM相关基础知识](docs/Case_000.MD)；
-2. [一个计数合约，来解释合约执行的流程和燃气消耗](docs/Case_001.MD)；
-3. [Calldata及优化方法](docs/Case_002.MD)；
-4. [存储使用及存储合并](docs/Case_003.MD)；
-5. [存储读写的燃气消耗](docs/Case_004.MD)；
-6. [内存的燃气计算](docs/Case_005.MD)；
-7. [日志event收费](docs/Case_006.MD)；
-8. [调用合约](docs/Case_007.MD)；
-9. [合约编译优化及合约部署优化](docs/Case_008.MD)；
+1. [EVM相关基础知识](docs/Case_000.md)；
+2. [一个计数合约，来解释合约执行的流程和燃气消耗](docs/Case_001.md)；
+3. [Calldata及优化方法](docs/Case_002.md)；
+4. [存储使用及存储合并](docs/Case_003.md)；
+5. [存储读写的燃气消耗](docs/Case_004.md)；
+6. [内存的燃气计算](docs/Case_005.md)；
+7. [日志event收费](docs/Case_006.md)；
+8. [调用合约](docs/Case_007.md)；
+9. [合约部署及编译优化设置](docs/Case_008.md)；
 
 #### Part2: 语言语法层面的小技巧
 
 这一部分我们关注语法在操作码上具体的不同导致收费的不同，而不是简单告诉大家哪个写法更好
 
-- [+1 的四种写法](docs/Case_101.MD)；
+- [+1 的四种写法](docs/Case_101.md)；
 - constant 和 immutable；
-- [revert vs require](docs/Case_102.MD)；
-- [calldata和memery内存影响](docs/Case_103.MD)；
+- [revert vs require](docs/Case_102.md)；
+- [calldata和memery内存影响](docs/Case_103.md)；
 - 可见性对燃气消耗的影响；
 - payable对燃气消耗的影响；
 - returns声明及return语句的燃气消耗；
@@ -53,7 +53,7 @@
 - 数组边界检查；
 - 字符串存储；
 - 缓存数据当数据读2次以上；
-- [缓存数组值避免多次循环读插槽](docs/Case_109.MD)；
+- [缓存数组值避免多次循环读插槽](docs/Case_109.md)；
 - 变量可见性；
 - use for语法；
 
@@ -104,6 +104,6 @@ NOXX 2022年5月16日
 - [B站 Web3研习舍](https://www.bilibili.com/video/BV174421c79R?p=29&vd_source=db54ffa9ac6ff13a5d5eb108632bd192) 丰富
 
 #### 项目
-
+- https://github.com/0xisk/awesome-solidity-gas-optimization/tree/master
 
 
